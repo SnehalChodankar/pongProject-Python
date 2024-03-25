@@ -1,11 +1,3 @@
-# Create Screen
-# Create and move paddle
-# Create anotehr paddle
-# Create the ball and make it move
-# Detact Collision with wall and bounce
-# Detact Collision with Paddle
-# Detact when paddle misses
-# Keep Score
 import time
 from turtle import Turtle, Screen
 import ball
@@ -36,6 +28,20 @@ while game_is_on:
 
     # Detact collision with wall
     if ball.ycor() > 280 or ball.ycor() < -280:
-        ball.bounce()
+        ball.bounce_y()
+
+    # Detact Collision with paddle
+    if ball.distance(user_2) < 50 and ball.xcor() > 330:
+        ball.bounce_x()
+    elif ball.distance(user_1) < 50 and ball.xcor() < -330:
+        ball.bounce_x()
+
+    # Detact Collision with left or right wall
+    if ball.xcor() > 380:
+        ball.hit_wall(user_1)
+    elif ball.xcor() < -380:
+        ball.hit_wall(user_2)
+
+
 
 screen.exitonclick()
