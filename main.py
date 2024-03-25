@@ -2,6 +2,7 @@ import time
 from turtle import Turtle, Screen
 import ball
 import paddle
+import scoreboard
 
 screen = Screen()
 screen.setup(width=800, height=600)
@@ -12,6 +13,8 @@ screen.tracer(0)  # for smooth reload of screen
 user_1 = paddle.Paddle(1)
 user_2 = paddle.Paddle(2)
 ball = ball.Ball()
+scoreboard = scoreboard.Scoreboard()
+
 
 screen.listen()
 
@@ -22,7 +25,7 @@ screen.onkey(user_2.down, "Down")
 
 game_is_on = True
 while game_is_on:
-    time.sleep(0.1)
+    time.sleep(ball.move_speed)
     screen.update()  # Used in combination with tracer
     ball.move()
 
@@ -38,10 +41,18 @@ while game_is_on:
 
     # Detact Collision with left or right wall
     if ball.xcor() > 380:
-        ball.hit_wall(user_1)
+        ball.hit_wall()
+        scoreboard.user1_scored()
     elif ball.xcor() < -380:
-        ball.hit_wall(user_2)
+        ball.hit_wall()
+        scoreboard.user2_scored()
 
+    if scoreboard.user_1_score == 5:
+        scoreboard.game_over(1)
+        game_is_on = False
+    elif scoreboard.user_2_score == 5:
+        game_is_on = False
+        scoreboard.game_over(2)
 
 
 screen.exitonclick()

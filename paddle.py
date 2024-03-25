@@ -12,8 +12,6 @@ class Paddle(Turtle):
 
         self.create_paddle(num)
 
-        self.score = 0
-
     def create_paddle(self, num):
         self.shape("square")
         self.color("white")
